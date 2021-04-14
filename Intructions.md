@@ -52,6 +52,7 @@ The following HTML routes should be created:
 
 * `GET /notes` should return the `notes.html` file.
 
+<!-- use '/' not * -->
 * `GET *` should return the `index.html` file.
 
 The following API routes should be created:

@@ -1,53 +1,21 @@
-const http = require('http');
+//requiring express for our server
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
 
-
+// creating express server
 const app = express();
-const PORT = 3000;
 
+// sets initial port
+const PORT = process.env.PORT || 8000;
+
+// setting up express for data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// function to display home page
-const displayHome = (res) => {
-    fs.readFile(`${ __dirname }/public/index.html`, (err, data) => {
-        if(err) {
-            console.log(err);
-            res.writeHead(500, { 'Content-Type': 'text/html' })
-            res.end('FILE CORRUPT')
-        }
+// mapping out routes for our server
+require('./routes/apiRoutes')(app);
+require('./routes/htmlRoutes')(app);
 
-        res.writeHead(200, { 'Content-Type': 'text/html' })
-        res.end(data);
-    })
-}
-
-const displayNotes = (res) => {
-    fs.readFile(`${ __dirname }/public/notes.html`, (err, data) => {
-        if(err) {
-            console.log(err);
-            res.writeHead(500, { 'Content-Type': 'text/html' })
-            res.end('FILE CORRUPT')
-        }
-
-        res.writeHead(200, { 'Content-Type': 'text/html' })
-        res.end(data);
-    })
-}
-
-const handler = (req, res) => {
-    const path = req.url;
-
-    switch (path) {
-        case '/notes':
-            return displayNotes(res);
-        default:
-            return displayHome(res);
-    }
-}
-
-
-
-app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
+// start the server
+app.listen(PORT, () => {
+    console.log(`App listening on PORT ${PORT}`)
+});
