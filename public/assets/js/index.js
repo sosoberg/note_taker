@@ -1,3 +1,5 @@
+const uniqid = require('../../../server')
+
 let noteTitle;
 let noteText;
 let saveNoteBtn;
@@ -82,7 +84,7 @@ const handleNoteDelete = (e) => {
 
   const note = e.target;
   const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
-
+  console.log(noteId)
   if (activeNote.id === noteId) {
     activeNote = {};
   }
