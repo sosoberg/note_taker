@@ -1,5 +1,5 @@
 // pull data here
-
+const uniqid = require('uniqid')
 const noteData = require('../db/db.json');
 
 console.log(noteData)
@@ -11,7 +11,12 @@ module.exports = (app) => {
     });
 
     app.post('/api/notes', (req, res) => {
-        noteData.push(req.body);
+        let id = {
+            title: req.body.title,
+            text: req.body.text,
+            id: uniqid(),
+        }
+        noteData.push(id);
         res.json(true)
     });
 

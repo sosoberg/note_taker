@@ -22,4 +22,3 @@ app.listen(PORT, () => {
     console.log(`App listening on PORT ${PORT}`)
 });
 
-module.exports = { v4: uuidv4 } = require('uuid');
