@@ -14,8 +14,9 @@ module.exports = (app) => {
         let id = {
             title: req.body.title,
             text: req.body.text,
-            id: uniqid(),
+            id: uniqid(), // using the uniqid package to create a unique id
         }
+
         noteData.push(id);
         res.json(true)
     });
@@ -25,4 +26,18 @@ module.exports = (app) => {
 
         res.json({ ok: true });
     });
-};
+
+    app.delete(`/api/notes/:id`, (req, res) => {
+ 
+        const index = noteData.filter((obj, index) => {
+            console.log(obj)
+            console.log(index)
+            if (obj.id === req.params.id) {
+                return index;
+            }
+        });
+
+        noteData.splice(index, 1)
+        res.json('bananas')
+    }
+)};
